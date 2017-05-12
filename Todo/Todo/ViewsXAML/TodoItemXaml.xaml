@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:a="clr-namespace:Todo;assembly=Todo"
+    x:Class="Todo.TodoItemXaml"
+	Padding="20">
+    <ContentPage.Content>
+
+    	<StackLayout VerticalOptions="StartAndExpand">
+
+	        <Label Text="Name" 
+				a:AccessibilityEffect.InAccessibleTree="false" />
+	        <Entry Text="{Binding Path=Name}" x:Name="nameEntry" Placeholder="task name"
+				a:AccessibilityEffect.AccessibilityLabel="todo name"
+				a:AccessibilityEffect.AccessibilityHint="Todo task"
+				/>
+
+			<Label Text="Notes"
+				a:AccessibilityEffect.InAccessibleTree="false" />
+	        <Entry Text="{Binding Path=Notes}" x:Name="notesEntry" 
+				a:AccessibilityEffect.AccessibilityHint="Additional information"
+				/>
+
+	        <Label Text="Done" 
+				a:AccessibilityEffect.InAccessibleTree="false"/>
+	        <Switch IsToggled="{Binding Path=Done}" 
+				x:Name="DoneSwitch" 
+				a:AccessibilityEffect.AccessibilityLabel="{Binding Path=DoneText}"
+				a:AccessibilityEffect.AccessibilityHint="Toggle to indicate whether item is complete"
+				/>
+
+	        <Button Text="Save" Clicked="OnSaveActivated"
+				a:AccessibilityEffect.AccessibilityHint="Save changes"/>
+			
+			<Button Text="Delete" Clicked="OnDeleteActivated"
+				a:AccessibilityEffect.AccessibilityHint="Permanently deletes this item"
+				/>
+
+	        <Button Text="Cancel" Clicked="OnCancelActivated" 
+				a:AccessibilityEffect.AccessibilityHint="Return to list"/>
+
+	        <Button Text="Speak" Clicked="OnSpeakActivated"
+				a:AccessibilityEffect.AccessibilityHint="Speaks this item"
+				/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>	

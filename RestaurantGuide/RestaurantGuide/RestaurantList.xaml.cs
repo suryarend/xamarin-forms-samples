@@ -11,21 +11,32 @@ namespace RestaurantGuide
 			InitializeComponent ();
 		}
 
-		//List<Restaurant> restaurants;
-
 		public RestaurantList (List<Restaurant> r) : this()
 		{
-			//restaurants = r;
-
 			listView.ItemsSource = r;
 		}
 
-		public void OnItemSelected (object sender, SelectedItemChangedEventArgs e) {
+		protected override void OnAppearing ()
+		{
+			base.OnAppearing ();
+
+			Application.Current.Properties ["rid"] = "";
+		}
+
+		public async void OnItemSelected (object sender, SelectedItemChangedEventArgs e) {
+			if (e.SelectedItem == null)
+				return;
+			
 			var r = (Restaurant)e.SelectedItem;
+
+			Application.Current.Properties ["rid"] = r.Number;
+			await App.Current.SavePropertiesAsync ();
 
 			var rPage = new RestaurantDetail();
 			rPage.BindingContext = r;
-			Navigation.PushAsync(rPage);
+			await Navigation.PushAsync(rPage);
+
+			((ListView)sender).SelectedItem = null;
 		}
 	}
 }

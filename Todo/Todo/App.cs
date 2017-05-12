@@ -3,34 +3,26 @@ using Xamarin.Forms;
 
 namespace Todo
 {
-	public static class App
+	public class App : Application
 	{
-		public static Page GetMainPage ()
+		public App ()
 		{
-			var mainNav = new NavigationPage (new TodoListPage ());
+			var tp = new TabbedPage();
 
-			return mainNav;
+			tp.Children.Add (new NavigationPage (new TodoListPage ()) {Title = "C#", Icon = "csharp" } );
+			tp.Children.Add (new NavigationPage (new TodoListXaml ()) {Title = "XAML", Icon = "xaml" } );
+
+			MainPage = tp;
 		}
 
-		static SQLite.Net.SQLiteConnection conn;
 		static TodoItemDatabase database;
-		public static void SetDatabaseConnection (SQLite.Net.SQLiteConnection connection)
-		{
-			conn = connection;
-			database = new TodoItemDatabase (conn);
-		}
 		public static TodoItemDatabase Database {
-			get { return database; }
-		}
-
-
-		static ITextToSpeech TextToSpeech;
-		public static void SetTextToSpeech (ITextToSpeech speech)
-		{
-			TextToSpeech = speech;
-		}
-		public static ITextToSpeech Speech {
-			get { return TextToSpeech; }
+			get { 
+				if (database == null) {
+					database = new TodoItemDatabase ();
+				}
+				return database; 
+			}
 		}
 	}
 }

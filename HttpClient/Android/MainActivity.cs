@@ -16,15 +16,16 @@ namespace HttpClientDemo.Android
 	[Activity (Label = "HttpClient.Android.Android",
 		MainLauncher = true, 
 		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : AndroidActivity
+	public class MainActivity : FormsApplicationActivity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
 			Xamarin.Forms.Forms.Init (this, bundle);
+			Xamarin.FormsMaps.Init(this, bundle);
 
-			SetPage (App.GetMainPage ());
+			LoadApplication (new App());
 		}
 	}
 }

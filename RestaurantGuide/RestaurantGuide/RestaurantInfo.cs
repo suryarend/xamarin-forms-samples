@@ -47,7 +47,7 @@ WriteLiteral(">");
 
 
 #line 10 "RestaurantInfo.cshtml"
-                                           Write(Model.Name);
+                                              Write(Model.Name);
 
 
 #line default
@@ -66,7 +66,7 @@ WriteLiteral("><b>");
 
 
 #line 13 "RestaurantInfo.cshtml"
-                                     Write(Model.Cuisine.ToUpper());
+                                        Write(Model.Cuisine.ToUpper());
 
 
 #line default
@@ -75,7 +75,7 @@ WriteLiteral("</b></span><br/>\n\t<i>");
 
 
 #line 14 "RestaurantInfo.cshtml"
-Write(Model.Address);
+  Write(Model.Address);
 
 
 #line default
@@ -122,21 +122,21 @@ WriteLiteral(">");
 
 
 #line 19 "RestaurantInfo.cshtml"
-                     Write(Model.Website);
+                        Write(Model.Website);
 
 
 #line default
 #line hidden
-WriteLiteral("</a>\n \n\t<br/>");
+WriteLiteral("</a>\n\n\t<!--\n\t<br/>");
 
 
-#line 21 "RestaurantInfo.cshtml"
- Write(Model.Text);
+#line 22 "RestaurantInfo.cshtml"
+    Write(Model.Text);
 
 
 #line default
 #line hidden
-WriteLiteral("<br/><br/>\n\n\t<div");
+WriteLiteral("<br/>\n\t-->\n\t<br/>\n\n\t<div");
 
 WriteLiteral(" style=\'background-color:#8CBF26;padding:8px;\'");
 
@@ -149,7 +149,7 @@ WriteLiteral("><b>HOURS</b></div>\n");
 WriteLiteral("\t");
 
 
-#line 25 "RestaurantInfo.cshtml"
+#line 28 "RestaurantInfo.cshtml"
 Write(Model.Hours);
 
 
@@ -164,7 +164,7 @@ WriteLiteral("><b>CARD TYPES ACCEPTED</b></div>\n");
 WriteLiteral("\t");
 
 
-#line 27 "RestaurantInfo.cshtml"
+#line 30 "RestaurantInfo.cshtml"
 Write(Model.CreditCards);
 
 
@@ -179,7 +179,7 @@ WriteLiteral("><b>CHEF</b></div>\n");
 WriteLiteral("\t");
 
 
-#line 29 "RestaurantInfo.cshtml"
+#line 32 "RestaurantInfo.cshtml"
 Write(Model.Chef);
 
 

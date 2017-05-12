@@ -3,21 +3,21 @@ using Xamarin.Forms;
 
 namespace Evolve13
 {
-	public static class App
+	public class App : Application
 	{
-		public static Page GetMainPage ()
+		public App ()
 		{
 			var md = new MasterDetailPage ();
 
 			md.Master = new MenuPage (md);
 			md.Detail = new NavigationPage(new SessionsPage ()) {Tint = App.NavTint};
 
-			return md;
+			MainPage = md;
 		}
 
-		static SQLite.Net.SQLiteConnection conn;
+		static SQLite.SQLiteConnection conn;
 		static EvolveDatabase database;
-		public static void SetDatabaseConnection (SQLite.Net.SQLiteConnection connection)
+		public static void SetDatabaseConnection (SQLite.SQLiteConnection connection)
 		{
 			conn = connection;
 			database = new EvolveDatabase (conn);

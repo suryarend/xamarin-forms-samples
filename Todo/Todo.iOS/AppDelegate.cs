@@ -1,62 +1,43 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Todo;
 using Xamarin.Forms;
 using System.IO;
+using Xamarin.Forms.Platform.iOS;
 
 namespace Todo
 {
+
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
 	// User Interface of the application, as well as listening (and optionally responding) to
 	// application events from iOS.
 	[Register ("AppDelegate")]
-	public partial class AppDelegate : UIApplicationDelegate
+	public partial class AppDelegate : FormsApplicationDelegate
 	{
-		// class-level declarations
-		UIWindow window;
-		//
-		// This method is invoked when the application has loaded and is ready to run. In this
-		// method you should instantiate the window, load the UI into it and then make the window
-		// visible.
-		//
-		// You have 17 seconds to return from this method, or iOS will terminate your application.
-		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			Forms.Init ();
-			// create a new window instance based on the screen size
-			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
-			var sqliteFilename = "TodoSQLite.db3";
-			string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
-			string libraryPath = Path.Combine (documentsPath, "..", "Library"); // Library folder
-			var path = Path.Combine(libraryPath, sqliteFilename);
+			#if DEBUG
+			// http://forums.xamarin.com/discussion/21148/calabash-and-xamarin-forms-what-am-i-missing
+			Forms.ViewInitialized += (object sender, ViewInitializedEventArgs e) => {
 
-			// This is where we copy in the prepopulated database
-			Console.WriteLine (path);
-			if (!File.Exists (path)) {
-				File.Copy (sqliteFilename, path);
-			}
+				//Console.WriteLine("=== " + e.View);
 
-			var plat = new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
-			var conn = new SQLite.Net.SQLiteConnection(plat, path);
+				// http://developer.xamarin.com/recipes/testcloud/set-accessibilityidentifier-ios/
+				if (null != e.View.StyleId) {
+					e.NativeView.AccessibilityIdentifier = e.View.StyleId;
+					//Console.WriteLine("Set AccessibilityIdentifier: " + e.View.StyleId);
+				}
+			};
+			#endif
 
-			// Set the database connection string
-			App.SetDatabaseConnection (conn);
+			LoadApplication (new App ());
 
-			App.SetTextToSpeech (new Speech ());
-
-			// If you have defined a view, add it here:
-			// window.RootViewController  = navigationController;
-			window.RootViewController = App.GetMainPage ().CreateViewController ();
-
-			// make the window visible
-			window.MakeKeyAndVisible ();
-
-			return true;
+			return base.FinishedLaunching(app,options);
 		}
 	}
 }

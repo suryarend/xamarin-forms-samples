@@ -1,5 +1,5 @@
 ﻿using System;
-using SQLite.Net.Attributes;
+using SQLite;
 
 namespace Todo
 {
@@ -14,6 +14,12 @@ namespace Todo
 		public string Name { get; set; }
 		public string Notes { get; set; }
 		public bool Done { get; set; }
+
+		[Ignore]
+		public string DoneText
+		{
+			get { return Done?"Iten has been completed":"Still to do"; }
+		}
 	}
 }
 

@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Evolve13;
 using Xamarin.Forms;
 using System.IO;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace Evolve13
 {
@@ -13,7 +15,7 @@ namespace Evolve13
 	// User Interface of the application, as well as listening (and optionally responding) to
 	// application events from iOS.
 	[Register ("AppDelegate")]
-	public partial class AppDelegate : UIApplicationDelegate
+	public partial class AppDelegate : FormsApplicationDelegate
 	{
 		// class-level declarations
 		UIWindow window;
@@ -43,20 +45,14 @@ namespace Evolve13
 				File.Copy (sqliteFilename, path);
 			}
 
-			var plat = new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
-			var conn = new SQLite.Net.SQLiteConnection(plat, path);
+			var conn = new SQLite.SQLiteConnection(path);
 
 			// Set the database connection string
 			App.SetDatabaseConnection (conn);
 
-			// If you have defined a view, add it here:
-			// window.RootViewController  = navigationController;
-			window.RootViewController = App.GetMainPage ().CreateViewController ();
+			LoadApplication (new App ());
 
-			// make the window visible
-			window.MakeKeyAndVisible ();
-
-			return true;
+			return base.FinishedLaunching (app, options);
 		}
 	}
 }
